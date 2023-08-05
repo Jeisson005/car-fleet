@@ -1,6 +1,6 @@
 package com.agence.carfleet.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agence.carfleet.entities.Carro;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.CarroService;
-import com.agence.carfleet.services.ViajeService;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,11 +23,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CarroController {
     private final CarroService carroService;
-    // private final ViajeService viajeService;
 
     @GetMapping()
-    public ArrayList<Carro> getAll() {
+    public List<Carro> getAll() {
         return carroService.getAll();
+    }
+
+    @GetMapping(path = "/retirados")
+    public List<Carro> getRetirados() {
+        return carroService.getRetirados();
     }
 
     @GetMapping(path = "/{id}")
