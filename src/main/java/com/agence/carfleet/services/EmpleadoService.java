@@ -14,15 +14,19 @@ public class EmpleadoService {
     @Autowired
     EmpleadoRepository empleadoRepository;
 
-    public ArrayList<Empleado> getAll(){
+    public ArrayList<Empleado> getAll() {
         return (ArrayList<Empleado>) empleadoRepository.findAll();
     }
 
-    public Optional<Empleado> getOne(Integer id){
+    public Optional<Empleado> getOne(int id) {
         return empleadoRepository.findById(id);
     }
 
-    public Empleado create(Empleado empleado){
+    public Empleado create(Empleado empleado) {
         return empleadoRepository.save(empleado);
+    }
+
+    public void delete(int id) {
+        empleadoRepository.deleteById(id);
     }
 }
