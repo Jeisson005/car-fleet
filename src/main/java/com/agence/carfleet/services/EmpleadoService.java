@@ -1,21 +1,22 @@
 package com.agence.carfleet.services;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agence.carfleet.entities.Empleado;
 import com.agence.carfleet.repositories.EmpleadoRepository;
 
-@Service
-public class EmpleadoService {
-    @Autowired
-    EmpleadoRepository empleadoRepository;
+import lombok.RequiredArgsConstructor;
 
-    public ArrayList<Empleado> getAll() {
-        return (ArrayList<Empleado>) empleadoRepository.findAll();
+@Service
+@RequiredArgsConstructor
+public class EmpleadoService {
+    private final EmpleadoRepository empleadoRepository;
+
+    public List<Empleado> getAll() {
+        return (List<Empleado>) empleadoRepository.findAll();
     }
 
     public Optional<Empleado> getOne(int id) {

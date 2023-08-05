@@ -1,6 +1,6 @@
 package com.agence.carfleet.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +25,7 @@ public class ViajeController {
     private final ViajeService viajeService;
 
     @GetMapping()
-    public ArrayList<Viaje> getAll() {
+    public List<Viaje> getAll() {
         return viajeService.getAll();
     }
 
@@ -41,7 +40,7 @@ public class ViajeController {
         }
     }
 
-    @GetMapping(path = "/realizadas/{mes}/{ano}")
+    @GetMapping(path = "/realizados/{mes}/{ano}")
     public ResponseEntity<?> getOneByFechaEntrega(@PathVariable("mes") int mes, @PathVariable("ano") int ano) {
         return ResponseEntity.ok(viajeService.getByFechaEntrega(mes, ano));
     }

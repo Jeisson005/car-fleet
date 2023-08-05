@@ -1,6 +1,6 @@
 package com.agence.carfleet.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class EmpleadoController {
     private final EmpleadoService empleadoService;
 
     @GetMapping()
-    public ArrayList<Empleado> getAll() {
+    public List<Empleado> getAll() {
         return empleadoService.getAll();
     }
 

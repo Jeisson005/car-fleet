@@ -2,26 +2,24 @@ package com.agence.carfleet.services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.agence.carfleet.entities.Empleado;
 import com.agence.carfleet.entities.Viaje;
 import com.agence.carfleet.repositories.ViajeRepository;
 
-@Service
-public class ViajeService {
-    @Autowired
-    ViajeRepository viajeRepository;
+import lombok.RequiredArgsConstructor;
 
-    public ArrayList<Viaje> getAll() {
-        return (ArrayList<Viaje>) viajeRepository.findAll();
+@Service
+@RequiredArgsConstructor
+public class ViajeService {
+    private final ViajeRepository viajeRepository;
+
+    public List<Viaje> getAll() {
+        return (List<Viaje>) viajeRepository.findAll();
     }
 
     public Optional<Viaje> getOne(int id) {
