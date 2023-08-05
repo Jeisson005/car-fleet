@@ -3,7 +3,6 @@ package com.agence.carfleet.controllers;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,11 +17,13 @@ import com.agence.carfleet.entities.Empleado;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.EmpleadoService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/empleados")
+@RequiredArgsConstructor
 public class EmpleadoController {
-    @Autowired
-    EmpleadoService empleadoService;
+    private final EmpleadoService empleadoService;
 
     @GetMapping()
     public ArrayList<Empleado> getAll() {
@@ -30,7 +31,7 @@ public class EmpleadoController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") int id) {
         Optional<Empleado> empleado = empleadoService.getOne(id);
         if (empleado.isPresent())
             return ResponseEntity.ok(empleado);
@@ -42,11 +43,13 @@ public class EmpleadoController {
 
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody Empleado empleado) {
-        return ResponseEntity.ok(empleadoService.create(empleado));
+        return ResponseEntity.status(HttpStatus.CREATED).body(empleadoService.create(empleado));
+        
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> delete(@PathVariable("id") int id) {
+        empleadoService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
