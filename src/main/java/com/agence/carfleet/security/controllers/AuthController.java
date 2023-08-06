@@ -10,6 +10,7 @@ import com.agence.carfleet.security.models.LoginRequest;
 import com.agence.carfleet.security.models.LoginResponse;
 import com.agence.carfleet.security.services.AuthService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -19,7 +20,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping()
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest){
         return ResponseEntity.ok(authService.login(loginRequest));
     }
 }

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agence.carfleet.entities.Carro;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.CarroService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -35,7 +37,7 @@ public class CarroController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+    public ResponseEntity<?> getOne(@Valid @PathVariable("id") int id) {
         Optional<Carro> carro = carroService.getOne(id);
         if (carro.isPresent())
             return ResponseEntity.ok(carro);
@@ -46,13 +48,13 @@ public class CarroController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Carro carro) {
+    public ResponseEntity<?> create(@RequestBody @Valid Carro carro) {
         return ResponseEntity.status(HttpStatus.CREATED).body(carroService.create(carro));
         
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") int id) {
+    public ResponseEntity<?> delete(@Valid @PathVariable("id") int id) {
         carroService.delete(id);
         return ResponseEntity.noContent().build();
     }

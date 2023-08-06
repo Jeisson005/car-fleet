@@ -17,6 +17,7 @@ import com.agence.carfleet.entities.Empleado;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.EmpleadoService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,7 +32,7 @@ public class EmpleadoController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+    public ResponseEntity<?> getOne(@Valid @PathVariable("id") int id) {
         Optional<Empleado> empleado = empleadoService.getOne(id);
         if (empleado.isPresent())
             return ResponseEntity.ok(empleado);
@@ -42,13 +43,13 @@ public class EmpleadoController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Empleado empleado) {
+    public ResponseEntity<?> create(@RequestBody @Valid Empleado empleado) {
         return ResponseEntity.status(HttpStatus.CREATED).body(empleadoService.create(empleado));
         
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") int id) {
+    public ResponseEntity<?> delete(@Valid @PathVariable("id") int id) {
         empleadoService.delete(id);
         return ResponseEntity.noContent().build();
     }

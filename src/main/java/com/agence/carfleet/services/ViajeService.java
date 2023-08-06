@@ -1,14 +1,19 @@
 package com.agence.carfleet.services;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.agence.carfleet.entities.Carro;
+import com.agence.carfleet.entities.Empleado;
 import com.agence.carfleet.entities.Viaje;
+import com.agence.carfleet.exception.RestException;
+import com.agence.carfleet.repositories.CarroRepository;
+import com.agence.carfleet.repositories.EmpleadoRepository;
 import com.agence.carfleet.repositories.ViajeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ViajeService {
     private final ViajeRepository viajeRepository;
+    private final EmpleadoRepository empleadoRepository;
+    private final CarroRepository carroRepository;
 
     public List<Viaje> getAll() {
         return (List<Viaje>) viajeRepository.findAll();
@@ -32,18 +39,23 @@ public class ViajeService {
         try {
             starDate = getDate(mes, ano);
             endDate = new Date(getDate(mes + 1, ano).getTime() - 1);
-        } catch (ParseException e) {
-            // TODO: Fecha no valida
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RestException(HttpStatus.BAD_REQUEST, e.getMessage());
         };
         return viajeRepository.findByFechaEntregaBetween(starDate, endDate);
     }
 
     public Viaje retirar(int idEmpleado, int idCarro) {
-        Viaje viaje = new Viaje(idEmpleado, idCarro);
-        if (!viajeRepository.existsByEmpleadoAndCarroAndFechaEntrega(viaje.getEmpleado(), viaje.getCarro(), null))
-            return viajeRepository.save(viaje);
-        return viajeRepository.save(viaje); // TODO: Error
+        Optional<Empleado> optionalEmpleado = empleadoRepository.findById(idEmpleado);
+        Optional<Carro> optionalCarro = carroRepository.findById(idCarro);
+        if (!optionalEmpleado.isPresent())
+            throw new RestException(HttpStatus.BAD_REQUEST, "Empleado no existe");
+        if (!optionalCarro.isPresent())
+            throw new RestException(HttpStatus.BAD_REQUEST, "Carro no existe");
+        Viaje viaje = new Viaje(optionalEmpleado.get(), optionalCarro.get());
+        if (viajeRepository.existsByEmpleadoAndCarroAndFechaEntrega(viaje.getEmpleado(), viaje.getCarro(), null))
+            throw new RestException(HttpStatus.BAD_REQUEST, "Carro ya retirado, no se puede volver a retirar");
+        return viajeRepository.save(viaje);
     }
 
     public Viaje devolver(int idEmpleado, int idCarro) {
@@ -55,7 +67,7 @@ public class ViajeService {
             viaje.setFechaEntrega(new Date());
             return viajeRepository.save(viaje);
         }
-        return viajeRepository.save(viaje); // TODO: Error
+        throw new RestException(HttpStatus.BAD_REQUEST, "No existe retiro registrado, no se puede devolver");
     }
 
     public Viaje create(Viaje viaje) {
@@ -66,7 +78,7 @@ public class ViajeService {
         viajeRepository.deleteById(id);
     }
 
-    private Date getDate(int mes, int ano) throws ParseException {
+    private Date getDate(int mes, int ano) throws Exception {
         return new SimpleDateFormat("yyyy-MM-dd").parse(ano + "-" + mes + "-" + 1);
     }
 }

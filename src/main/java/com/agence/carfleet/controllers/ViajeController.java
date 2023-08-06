@@ -16,6 +16,7 @@ import com.agence.carfleet.entities.Viaje;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.ViajeService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -30,7 +31,7 @@ public class ViajeController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") int id) {
+    public ResponseEntity<?> getOne(@Valid @PathVariable("id") int id) {
         Optional<Viaje> viaje = viajeService.getOne(id);
         if (viaje.isPresent())
             return ResponseEntity.ok(viaje);
@@ -41,20 +42,20 @@ public class ViajeController {
     }
 
     @GetMapping(path = "/realizados/{mes}/{ano}")
-    public ResponseEntity<?> getOneByFechaEntrega(@PathVariable("mes") int mes, @PathVariable("ano") int ano) {
+    public ResponseEntity<?> getOneByFechaEntrega(@Valid @PathVariable("mes") int mes, @Valid @PathVariable("ano") int ano) {
         return ResponseEntity.ok(viajeService.getByFechaEntrega(mes, ano));
     }
 
     @PostMapping(path = "/{idEmpleado}/{idCarro}")
-    public ResponseEntity<?> create(@PathVariable("idEmpleado") int idEmpleado,
-            @PathVariable("idCarro") int idCarro) {
+    public ResponseEntity<?> create(@Valid @PathVariable("idEmpleado") int idEmpleado,
+            @Valid @PathVariable("idCarro") int idCarro) {
         Viaje viaje = viajeService.retirar(idEmpleado, idCarro);
         return ResponseEntity.ok(viaje);
     }
 
     @DeleteMapping(path = "/{idEmpleado}/{idCarro}")
-    public ResponseEntity<?> delete(@PathVariable("idEmpleado") int idEmpleado,
-            @PathVariable("idCarro") int idCarro) {
+    public ResponseEntity<?> delete(@Valid @PathVariable("idEmpleado") int idEmpleado,
+            @Valid @PathVariable("idCarro") int idCarro) {
         Viaje viaje = viajeService.devolver(idEmpleado, idCarro);
         return ResponseEntity.ok(viaje);
     }

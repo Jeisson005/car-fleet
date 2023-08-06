@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,9 +21,14 @@ public class Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank()
+    @Column(nullable = false)
     private String modelo;
+    @NotBlank()
+    @Column(nullable = false)
     private String marca;
-    @Column(name = "fecha_fabricacion")
+    @NotNull()
+    @Column(name = "fecha_fabricacion", nullable = false)
     private Date fechaFabricacion;
 
     public Carro(int id) {
