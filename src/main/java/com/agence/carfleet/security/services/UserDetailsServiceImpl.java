@@ -23,10 +23,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Value("${car-fleet.password}")
     private String password;
 
+    @Value("${car-fleet.password-hash}")
+    private String passwordHash;
+
     @Override
     public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException {
+        String encodePassword = (password != null && !password.isEmpty()) ? passwordEncoder.encode(password) : passwordHash;
         if (user.equals(username))
-            return new User(username, passwordEncoder.encode(password));
+            return new User(username, encodePassword);
         throw new UsernameNotFoundException("User not found");
     }
 
