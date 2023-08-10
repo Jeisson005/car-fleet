@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agence.carfleet.entities.Empleado;
-import com.agence.carfleet.exception.RestException;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.EmpleadoService;
 

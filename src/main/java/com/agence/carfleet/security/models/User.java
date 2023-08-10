@@ -21,11 +21,6 @@ public class User implements UserDetails{
         this.password = loginRequest.getPassword();
     }
 
-    // public User(String username, String password) {
-    //     this.username = username;
-    //     this.password = password;
-    // }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<GrantedAuthority>();
