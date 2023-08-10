@@ -3,9 +3,11 @@ package com.agence.carfleet.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.agence.carfleet.entities.Carro;
+import com.agence.carfleet.exception.RestException;
 import com.agence.carfleet.repositories.CarroRepository;
 import com.agence.carfleet.repositories.ViajeRepository;
 
@@ -31,6 +33,13 @@ public class CarroService {
 
     public Carro create(Carro carro) {
         return carroRepository.save(carro);
+    }
+
+    public Carro update(Carro carro) {
+        Optional<Carro> optionalCarro = carroRepository.findById(carro.getId());
+        if(optionalCarro.isPresent())
+            return carroRepository.save(carro);
+        throw new RestException(HttpStatus.BAD_REQUEST, "Registro inexistente");
     }
 
     public void delete(int id) {
