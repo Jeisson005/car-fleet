@@ -27,5 +27,6 @@ services:
     restart: unless-stopped
 networks:
   car-fleet:
+    name: car-fleet_net
 volumes:
   db:
