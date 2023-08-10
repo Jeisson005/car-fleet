@@ -13,7 +13,10 @@ El proyecto cuenta con todos y cada uno de los requerimientos descritos en el do
 - Se crearon los archivos necesarios para ejecutar el proyecto con docker compose
 
 ## Ejecución
-Las siguientes son las posibles formas de ejecución, las variables requeridas estan ya con sus valores por defecto en cada archivo, por lo que es probable que no se requiera ninguna configuración adicional.
+Las siguientes son las posibles formas de ejecución, las variables requeridas estan ya con sus valores por defecto en cada archivo, por lo que es probable que no se requiera ninguna configuración adicional, el servicio debería ser desplegado en:
+```
+http://localhost:8080
+```
 ### Maven
 El proyecto puede ser ejecutado directamente con maven si se cuenta con todas las versiones compatibles:
 ```
