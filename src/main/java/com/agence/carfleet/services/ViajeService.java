@@ -53,15 +53,14 @@ public class ViajeService {
         if (!optionalCarro.isPresent())
             throw new RestException(HttpStatus.BAD_REQUEST, "Carro no existe");
         Viaje viaje = new Viaje(optionalEmpleado.get(), optionalCarro.get());
-        if (viajeRepository.existsByEmpleadoAndCarroAndFechaEntrega(viaje.getEmpleado(), viaje.getCarro(), null))
+        if (viajeRepository.existsByCarroAndFechaEntrega(viaje.getCarro(), null))
             throw new RestException(HttpStatus.BAD_REQUEST, "Carro ya retirado, no se puede volver a retirar");
         return viajeRepository.save(viaje);
     }
 
     public Viaje devolver(int idEmpleado, int idCarro) {
         Viaje viaje = new Viaje(idEmpleado, idCarro);
-        Optional<Viaje> viajeOptional = viajeRepository.findByEmpleadoAndCarroAndFechaEntrega(viaje.getEmpleado(),
-                viaje.getCarro(), null);
+        Optional<Viaje> viajeOptional = viajeRepository.findByCarroAndFechaEntrega(viaje.getCarro(), null);
         if (viajeOptional.isPresent()) {
             viaje = viajeOptional.get();
             viaje.setFechaEntrega(new Date());

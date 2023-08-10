@@ -8,12 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.agence.carfleet.entities.Carro;
-import com.agence.carfleet.entities.Empleado;
 import com.agence.carfleet.entities.Viaje;
 
 public interface ViajeRepository extends JpaRepository<Viaje, Integer>{
-    boolean existsByEmpleadoAndCarroAndFechaEntrega(Empleado empleado, Carro carro, Date fechaEntrega);
-    Optional<Viaje> findByEmpleadoAndCarroAndFechaEntrega(Empleado empleado, Carro carro, Date fechaEntrega);
+    boolean existsByCarroAndFechaEntrega(Carro carro, Date fechaEntrega);
+    Optional<Viaje> findByCarroAndFechaEntrega(Carro carro, Date fechaEntrega);
     List<Viaje> findByFechaEntregaBetween(Date startDate, Date endDate);
     @Query("SELECT v.carro FROM Viaje v WHERE v.fechaEntrega IS NULL")
     List<Carro> findCarrosWithFechaEntregaNull();
