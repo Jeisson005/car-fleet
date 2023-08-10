@@ -29,7 +29,7 @@ En este caso archivo [.env](.env) cuenta con todas las variables de entorno y su
 ## Desarrollo y tecnologías
 Estas son las tecnologías utilizadas:
 
-- Java, Maven, SpringBoot, SpringSecurity, SpringData: Tecnologías base
+- Java (jdk-17), Maven (3.6.3), SpringBoot (3.1.2), SpringSecurity, SpringData: Tecnologías base
 - jjwt: Manejo de tokens jwt
 - SpringBoot Devtools: Despliegue rápido en ambiente de desarrollo
 - Lombok: Simplifica el lenguaje repetitivo de Java
