@@ -22,7 +22,7 @@ El proyecto puede ser ejecutado directamente con maven si se cuenta con todas la
 ```
 mvn spring-boot:run
 ```
-En este caso el archivo [application.properties](src/main/resources/application.properties) cuenta con todas las variables de entorno y sus valores por defecto, puede ser configurado según se requiera (pero ).
+En este caso el archivo [application.properties](src/main/resources/application.properties) cuenta con todas las variables de entorno y sus valores por defecto, puede ser configurado según se requiera.
 ### Docker compose 
 Puede ser ejecutado usando `docker-compose up` o en la última versión de docker:
 ```
