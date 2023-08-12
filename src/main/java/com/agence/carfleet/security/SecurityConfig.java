@@ -28,7 +28,7 @@ public class SecurityConfig {
         http = http.csrf(csrf -> csrf.disable());
         http = http.cors(Customizer.withDefaults());
         http = http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/docs/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated());
         http.exceptionHandling(exc -> exc.authenticationEntryPoint(authEntryPoint));
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

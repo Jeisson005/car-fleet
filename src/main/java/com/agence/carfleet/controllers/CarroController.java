@@ -18,12 +18,14 @@ import com.agence.carfleet.entities.Carro;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.CarroService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/carros")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class CarroController {
     private final CarroService carroService;
 

@@ -16,12 +16,14 @@ import com.agence.carfleet.entities.Viaje;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.ViajeService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/viajes")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class ViajeController {
     private final ViajeService viajeService;
 

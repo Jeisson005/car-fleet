@@ -18,12 +18,14 @@ import com.agence.carfleet.entities.Empleado;
 import com.agence.carfleet.models.Message;
 import com.agence.carfleet.services.EmpleadoService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/empleados")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class EmpleadoController {
     private final EmpleadoService empleadoService;
 
