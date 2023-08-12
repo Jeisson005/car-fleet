@@ -18,7 +18,7 @@ Para facilidad de la revisión el proyecto se desplegó en:
 http://35.168.6.153:8080/api/v1
 ```
 Además se generó documentación Swagger aquí: </br>
-[http://35.168.6.153:8080/api/v1/docs/swagger-ui/index.html](http://localhost:8080/api/v1/docs/swagger-ui/index.html)
+[http://35.168.6.153:8080/api/v1/docs/swagger-ui/index.html](http://35.168.6.153:8080/api/v1/docs/swagger-ui/index.html)
 
 ## Ejecución
 Las siguientes son las posibles formas de ejecución, las variables requeridas estan ya con sus valores por defecto en cada archivo, por lo que es probable que no se requiera ninguna configuración adicional, el servicio debería ser desplegado en:
